@@ -1,4 +1,37 @@
+import { useEffect } from "react";
+import { useForm } from "../../hooks/useForm";
+import { usePlatilloStore } from "../../hooks/usePlatillos";
+
+
+const formValues = {
+  nombre: "",
+  descripcion: "",
+  precio: 0,
+  imagenUrl: "",
+  categoria: "",
+  disponible: false,
+};
+
 export const AddMenu = () => {
+  const { 
+    formState, nombre, descripcion, precio, imagenUrl, categoria, disponible, onInputChange, onResetForm
+  } = useForm(formValues);
+
+  const {starSavingMenu} = usePlatilloStore()
+
+  useEffect(() => {
+    console.log('cambio');
+    
+  }, [imagenUrl])
+  
+
+  const onSubmit = (event) => {
+    event.preventDefault()
+    starSavingMenu(formState)
+    onResetForm()
+    
+  }
+
   return (
     <div className="max-w-7xl gap-6 mx-auto mt-70 p-8 shadow-2xl rounded-2xl border border-blue-100 flex items-stretch">
       <div className="w-1/2 pl-8 flex flex-col justify-center">
@@ -6,7 +39,7 @@ export const AddMenu = () => {
           Agregar un nuevo platillo
         </h1>
 
-        <form className="space-y-6">
+        <form onSubmit={onSubmit} className="space-y-6">
           <div>
             <label
               className="block mb-2 font-semibold text-blue-800"
@@ -21,6 +54,9 @@ export const AddMenu = () => {
               className="w-full border border-blue-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
               required
               autoComplete="off"
+              value={nombre}
+              onChange={onInputChange}
+              
             />
           </div>
           <div>
@@ -37,6 +73,8 @@ export const AddMenu = () => {
               required
               autoComplete="off"
               rows={3}
+              value={descripcion}
+              onChange={onInputChange}
             />
           </div>
           <div>
@@ -56,21 +94,26 @@ export const AddMenu = () => {
               min="0"
               step="0.01"
               inputMode="decimal"
+              value={precio}
+              onChange={onInputChange}
             />
           </div>
           <div>
             <label
               className="block mb-2 font-semibold text-blue-800"
-              htmlFor="urlImagen"
+              htmlFor="imagenUrl"
             >
               Url de la imagen
             </label>
             <input
               type="text"
-              id="urlImagen"
-              name="urlImagen"
+              id="imagenUrl"
+              name="imagenUrl"
               className="w-full border border-blue-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
               required
+              value={imagenUrl}
+              onChange={onInputChange}
+              
             />
           </div>
           <div>
@@ -85,12 +128,13 @@ export const AddMenu = () => {
               name="categoria"
               className="w-full border border-blue-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
               required
+              value={categoria}
+              onChange={onInputChange}
             >
               <option value="">Selecciona una categoría</option>
-              <option value="entrada">Entrada</option>
-              <option value="plato_principal">Plato Principal</option>
-              <option value="postre">Postre</option>
+              <option value="platillo">Platillo</option>
               <option value="bebida">Bebida</option>
+              <option value="postre">Postre</option>
             </select>
           </div>
           <div className="flex items-center space-x-4">
@@ -105,6 +149,8 @@ export const AddMenu = () => {
               id="disponible"
               name="disponible"
               className="w-5 h-5 border border-blue-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+              checked={disponible}
+              onChange={onInputChange}
             />
           </div>
           <button
@@ -117,8 +163,9 @@ export const AddMenu = () => {
       </div>
       <div className="w-1/2 flex flex-col justify-center">
         <img
-          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80"
-          alt="Menú de restaurante"
+        
+          src={imagenUrl ? imagenUrl : '../public/selectImage.png'}
+          alt={imagenUrl ? imagenUrl : 'No hay imagen'}
           className="w-full h-auto rounded-lg shadow-lg"
         />
       </div>

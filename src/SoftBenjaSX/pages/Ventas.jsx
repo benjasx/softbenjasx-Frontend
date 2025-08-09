@@ -37,7 +37,7 @@ export const Ventas = () => {
   );
 
   return (
-    <div className="max-w-[1000px] mx-auto mt-60 mb-10 p-8 shadow-2xl rounded-2xl border border-blue-100">
+    <div className="max-w-[1000px] mx-auto mt-70 mb-10 p-8 shadow-2xl rounded-2xl border border-blue-100">
       <h1 className="text-2xl font-bold mb-6 text-blue-700 text-center">
         Ventas Generadas
       </h1>

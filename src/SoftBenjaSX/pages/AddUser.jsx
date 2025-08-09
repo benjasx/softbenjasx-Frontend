@@ -1,4 +1,48 @@
+import { useAuthStore } from "../../hooks/useAuthStore";
+import { useForm } from "../../hooks/useForm";
+import Swal from "sweetalert2";
+
+const registerFormFields = {
+  registerName: "",
+  registerEmail: "",
+  registerpassword: "",
+  registerpassword2: "",
+};
+
 export const AddUser = () => {
+  const {
+    registerName,
+    registerEmail,
+    registerpassword,
+    registerpassword2,
+    role,
+    onInputChange,
+  } = useForm(registerFormFields);
+
+  const { startRegister } = useAuthStore();
+
+  const registerSubmit = (event) => {
+    event.preventDefault();
+
+    if (registerpassword !== registerpassword2) {
+      Swal.fire(
+        "Error en el registro",
+        "Las contraseñas no son iguales",
+        "error"
+      );
+      return;
+    }
+
+    startRegister({
+      name: registerName,
+      email: registerEmail,
+      password: registerpassword,
+      role: role,
+    });
+
+    
+  };
+
   return (
     <div className="max-w-7xl mx-auto mt-70 p-8 shadow-2xl rounded-2xl border border-blue-100 flex items-stretch">
       {/* Imagen al lado izquierdo */}
@@ -15,69 +59,100 @@ export const AddUser = () => {
           Añadir Usuario
         </h1>
 
-        <form className="space-y-6">
+        <form onSubmit={registerSubmit} className="space-y-6">
           <div>
             <label
               className="block mb-2 font-semibold text-blue-800"
-              htmlFor="nombre"
+              htmlFor="registerName"
             >
               Nombre
             </label>
             <input
               type="text"
-              id="nombre"
-              name="nombre"
+              id="registerName"
+              name="registerName"
               className="w-full border border-blue-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
               required
               autoComplete="off"
+              value={registerName}
+              onChange={onInputChange}
             />
           </div>
           <div>
             <label
               className="block mb-2 font-semibold text-blue-800"
-              htmlFor="correo"
+              htmlFor="role"
+            >
+              Rol
+            </label>
+            <select
+              id="role"
+              name="role"
+              className="w-full border border-blue-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+              required
+              defaultValue=""
+              value={role}
+              onChange={onInputChange}
+            >
+              <option value="" disabled>
+                Selecciona un rol
+              </option>
+              <option value="ADMIN">Administrador</option>
+              <option value="USER">Usuario</option>
+            </select>
+          </div>
+          <div>
+            <label
+              className="block mb-2 font-semibold text-blue-800"
+              htmlFor="registerEmail"
             >
               Correo
             </label>
             <input
               type="email"
-              id="correo"
-              name="correo"
+              id="registerEmail"
+              name="registerEmail"
               className="w-full border border-blue-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
               required
               autoComplete="off"
+              value={registerEmail}
+              onChange={onInputChange}
             />
           </div>
           <div>
             <label
               className="block mb-2 font-semibold text-blue-800"
-              htmlFor="contrasena"
+              htmlFor="registerpassword"
             >
               Contraseña
             </label>
             <input
               type="password"
-              id="contrasena"
-              name="contrasena"
+              id="registerpassword"
+              name="registerpassword"
               className="w-full border border-blue-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
               required
               autoComplete="new-password"
+              value={registerpassword}
+              onChange={onInputChange}
             />
           </div>
           <div>
             <label
               className="block mb-2 font-semibold text-blue-800"
-              htmlFor="confirmarContrasena"
+              htmlFor="registerpassword2"
             >
               Confirmar Contraseña
             </label>
             <input
               type="password"
-              id="confirmarContrasena"
-              name="confirmarContrasena"
+              id="registerpassword2"
+              name="registerpassword2"
               className="w-full border border-blue-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
               required
               autoComplete="new-password"
+              value={registerpassword2}
+              onChange={onInputChange}
             />
           </div>
           <button

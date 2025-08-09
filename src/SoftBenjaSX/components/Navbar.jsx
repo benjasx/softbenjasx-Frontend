@@ -3,42 +3,57 @@ import { FaCashRegister, FaUserNinja } from "react-icons/fa";
 import { IoFastFood } from "react-icons/io5";
 import { MdRestaurantMenu, MdShoppingCart } from "react-icons/md";
 import { NavLink } from "react-router";
+import { useAuthStore } from "../../hooks/useAuthStore";
 
 const iconClass = "text-6xl transition-colors";
 
 export const Navbar = () => {
+  const { starLogout, user } = useAuthStore();
+
   return (
-    <div className="w-full bg-gray-800 text-white shadow-2xl fixed top-0 left-0 z-50 ">
+    <div className="w-full bg-gray-800 text-white shadow-2xl fixed top-0 left-0 z-50">
+      <span className="m-5 text-center text-xl block">Usuario: {user.name}</span>
       <nav className="flex max-w-7xl mx-auto p-5 justify-center gap-5">
-        <NavLink
-          to="/soft-benjasx/add-user"
-          className="flex flex-col w-[168px] items-center border p-5 cursor-pointer hover:bg-gray-700 transition-colors rounded-2xl"
-        >
-          {({ isActive }) => (
-            <>
-              <FaUserNinja className={`${iconClass} ${isActive ? "text-orange-500" : ""}`} />
-              <span className="text-lg mt-2">Añadir Usuario</span>
-            </>
-          )}
-        </NavLink>
-        <NavLink
-          to="/soft-benjasx/add-menu"
-          className="flex flex-col w-[168px] items-center border p-5 cursor-pointer hover:bg-gray-700 transition-colors rounded-2xl"
-        >
-          {({ isActive }) => (
-            <>
-              <MdRestaurantMenu className={`${iconClass} ${isActive ? "text-orange-500" : ""}`} />
-              <span className="text-lg mt-2">Agregar Platillo</span>
-            </>
-          )}
-        </NavLink>
+        {user.role === "ADMIN" && (
+          <>
+            <NavLink
+              to="/soft-benjasx/add-user"
+              className="flex flex-col w-[168px] items-center border p-5 cursor-pointer hover:bg-gray-700 transition-colors rounded-2xl"
+            >
+              {({ isActive }) => (
+                <>
+                  <FaUserNinja
+                    className={`${iconClass} ${isActive ? "text-orange-500" : ""}`}
+                  />
+                  <span className="text-lg mt-2">Añadir Usuario</span>
+                </>
+              )}
+            </NavLink>
+            <NavLink
+              to="/soft-benjasx/add-menu"
+              className="flex flex-col w-[168px] items-center border p-5 cursor-pointer hover:bg-gray-700 transition-colors rounded-2xl"
+            >
+              {({ isActive }) => (
+                <>
+                  <MdRestaurantMenu
+                    className={`${iconClass} ${isActive ? "text-orange-500" : ""}`}
+                  />
+                  <span className="text-lg mt-2">Agregar Platillo</span>
+                </>
+              )}
+            </NavLink>
+          </>
+        )}
+
         <NavLink
           to="/soft-benjasx/add-sale"
           className="flex flex-col w-[168px] items-center border p-5 cursor-pointer hover:bg-gray-700 transition-colors rounded-2xl"
         >
           {({ isActive }) => (
             <>
-              <MdShoppingCart className={`${iconClass} ${isActive ? "text-orange-500" : ""}`} />
+              <MdShoppingCart
+                className={`${iconClass} ${isActive ? "text-orange-500" : ""}`}
+              />
               <span className="text-lg mt-2">Generar Venta</span>
             </>
           )}
@@ -49,7 +64,9 @@ export const Navbar = () => {
         >
           {({ isActive }) => (
             <>
-              <IoFastFood className={`${iconClass} ${isActive ? "text-orange-500" : ""}`} />
+              <IoFastFood
+                className={`${iconClass} ${isActive ? "text-orange-500" : ""}`}
+              />
               <span className="text-lg mt-2">Ver Menú</span>
             </>
           )}
@@ -60,24 +77,29 @@ export const Navbar = () => {
         >
           {({ isActive }) => (
             <>
-              <FaCashRegister className={`${iconClass} ${isActive ? "text-orange-500" : ""}`} />
+              <FaCashRegister
+                className={`${iconClass} ${isActive ? "text-orange-500" : ""}`}
+              />
               <span className="text-lg mt-2">Ver Ventas</span>
             </>
           )}
         </NavLink>
         <NavLink
-          to="/soft-benjasx/view-sales"
+          to="/auth/login"
           className="flex flex-col w-[168px] items-center border p-5 cursor-pointer hover:bg-gray-700 transition-colors rounded-2xl"
+          onClick={starLogout}
         >
           {({ isActive }) => (
             <>
-              <BiLogOut className={`${iconClass} ${isActive ? "text-orange-500" : ""}`} />
+              <BiLogOut
+                className={`${iconClass} ${isActive ? "text-orange-500" : ""}`}
+              />
               <span className="text-lg mt-2">Cerrar Sesión</span>
             </>
           )}
         </NavLink>
       </nav>
-      <div className="size-25 bg-gray-800 rounded-full fixed left-1/2 top-30 -translate-x-1/2 -z-10 shadow-2xl"></div>
+      <div className="size-25 bg-gray-800 rounded-full fixed left-1/2 top-45 -translate-x-1/2 -z-10 shadow-2xl"></div>
     </div>
   );
 };
