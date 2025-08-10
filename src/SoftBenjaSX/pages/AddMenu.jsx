@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useForm } from "../../hooks/useForm";
 import { usePlatilloStore } from "../../hooks/usePlatillos";
 
@@ -19,10 +18,7 @@ export const AddMenu = () => {
 
   const {starSavingMenu} = usePlatilloStore()
 
-  useEffect(() => {
-    console.log('cambio');
-    
-  }, [imagenUrl])
+
   
 
   const onSubmit = (event) => {
@@ -132,9 +128,9 @@ export const AddMenu = () => {
               onChange={onInputChange}
             >
               <option value="">Selecciona una categoría</option>
-              <option value="platillo">Platillo</option>
-              <option value="bebida">Bebida</option>
-              <option value="postre">Postre</option>
+              <option value="Platillos">Platillo</option>
+              <option value="Bebidas">Bebida</option>
+              <option value="Postres">Postre</option>
             </select>
           </div>
           <div className="flex items-center space-x-4">

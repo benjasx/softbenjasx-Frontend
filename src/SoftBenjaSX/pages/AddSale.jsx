@@ -1,18 +1,29 @@
+import { useEffect, useState, useMemo } from "react";
+import { usePlatilloStore } from "../../hooks/usePlatillos";
 import { MenuItem, CartItem } from "../components";
 import { useCart } from "../hooks";
 
 export const AddSale = () => {
-  const {
-    cart,
-    total,
-    addToCart,
-    removeFromCart,
-    menuSelecter,
-    menuList,
-    setCart,
-    setTotal,
-  } = useCart();
+  const { cart, total, addToCart, removeFromCart, setCart, setTotal } =
+    useCart();
 
+  const { startLoadingMenu, platillos } = usePlatilloStore();
+  const [selectedCategory, setSelectedCategory] = useState("Platillos");
+
+  useEffect(() => {
+    startLoadingMenu();
+  }, []);
+
+  const menuList = useMemo(() => {
+    return platillos.filter(
+      (platillo) => platillo.categoria === selectedCategory
+    );
+  }, [platillos, selectedCategory]);
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+  };
+  
   return (
     <div className="max-w-[1500px] mx-auto mt-60 mb-10 p-8 shadow-2xl rounded-2xl border border-blue-100">
       <h1 className="text-4xl font-extrabold mb-8 text-blue-700 text-center w-full">
@@ -23,20 +34,20 @@ export const AddSale = () => {
           <h2 className="text-4xl text-center font-bold mb-4">Menú</h2>
           <div className="flex m-4 gap-3">
             <button
-              className="bg-blue-500 text-white py-2 px-4 rounded cursor-pointer hover:bg-blue-600"
-              onClick={menuSelecter}
+              className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
+              onClick={() => handleCategoryClick("Platillos")}
             >
               Platillos
             </button>
             <button
-              className="bg-blue-500 text-white py-2 px-4 rounded cursor-pointer hover:bg-blue-600"
-              onClick={menuSelecter}
+              className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
+              onClick={() => handleCategoryClick("Bebidas")}
             >
               Bebidas
             </button>
             <button
-              className="bg-blue-500 text-white py-2 px-4 rounded cursor-pointer hover:bg-blue-600"
-              onClick={menuSelecter}
+              className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
+              onClick={() => handleCategoryClick("Postres")}
             >
               Postres
             </button>
@@ -84,7 +95,7 @@ export const AddSale = () => {
                       `Venta generada con éxito! Total: $${total.toFixed(2)}`
                     );
                     console.log("Venta generada:", cart, total);
-                    
+
                     setCart([]); // Vaciar el carrito
                     setTotal(0); // Reiniciar el total
                   } else {
