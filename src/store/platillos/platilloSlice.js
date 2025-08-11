@@ -22,6 +22,10 @@ export const menuSlice = createSlice({
       state.platillos.push(payload);
       state.selectedPlatillo = null;
     },
+    onUpdateMenu: (state) => {
+      state.selectedPlatillo = null;
+      
+    },
     removePlatillo: (state, action) => {
       state.platillos = state.platillos.filter((p) => p.id !== action.payload);
     },
@@ -45,6 +49,7 @@ export const {
   removePlatillo,
   setLoading,
   setError,
+  onUpdateMenu,
   clearSelectedPlatillo,
 } = menuSlice.actions;
 

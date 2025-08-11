@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { usePlatilloStore } from "../../hooks/usePlatillos";
 import { MenuItemList } from "../components";
-import { useCart } from "../hooks";
 
 export const Menu = () => {
   const { platillos } = usePlatilloStore();
@@ -16,23 +15,24 @@ export const Menu = () => {
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
+
   return (
-    <div className="max-w-[1500px] mx-auto mt-60 mb-10 p-8 shadow-2xl rounded-2xl border border-blue-100">
+    <div className="max-w-[1500px] mx-auto mt-30 mb-10 p-8 shadow-2xl rounded-2xl border border-blue-100">
       <div className="flex m-4 gap-3">
         <button
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
+          className="bg-blue-500 text-white text-sm font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
           onClick={() => handleCategoryClick("Platillos")}
         >
           Platillos
         </button>
         <button
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
+          className="bg-blue-500 text-white text-sm font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
           onClick={() => handleCategoryClick("Bebidas")}
         >
           Bebidas
         </button>
         <button
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
+          className="bg-blue-500 text-white text-sm font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
           onClick={() => handleCategoryClick("Postres")}
         >
           Postres

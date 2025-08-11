@@ -1,6 +1,7 @@
+import { useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
 import { usePlatilloStore } from "../../hooks/usePlatillos";
-
+import { useMemo } from "react";
 
 const formValues = {
   nombre: "",
@@ -12,27 +13,45 @@ const formValues = {
 };
 
 export const AddMenu = () => {
-  const { 
-    formState, nombre, descripcion, precio, imagenUrl, categoria, disponible, onInputChange, onResetForm
-  } = useForm(formValues);
+  const { selectedPlatillo } = useSelector((state) => state.menu);
 
-  const {starSavingMenu} = usePlatilloStore()
+  // 1. Usa useMemo para crear el objeto inicial del formulario
+  // Si hay un platillo, usa sus datos. Si no, usa el objeto formValues vacío.
+  // Esto asegura que el `initialForm` del hook no cambie a menos que el platillo cambie.
+  const initialForm = useMemo(() => {
+    return selectedPlatillo ? selectedPlatillo : formValues;
+  }, [selectedPlatillo]);
 
+  const {
+    formState,
+    nombre,
+    descripcion,
+    precio,
+    imagenUrl,
+    categoria,
+    disponible,
+    onInputChange,
+    onResetForm,
+  } = useForm(initialForm);
 
-  
+  const { starSavingMenu } = usePlatilloStore();
+
+  // 2. Este useEffect ya no es necesario, ya que el hook se inicializa
+  // con los valores correctos desde el principio. onResetForm solo se usará
+  // en el onSubmit.
 
   const onSubmit = (event) => {
-    event.preventDefault()
-    starSavingMenu(formState)
-    onResetForm()
-    
-  }
+    event.preventDefault();
+    starSavingMenu(formState);
+    console.log(formState);
+    onResetForm();
+  };
 
   return (
-    <div className="max-w-7xl gap-6 mx-auto mt-70 p-8 shadow-2xl rounded-2xl border border-blue-100 flex items-stretch">
+    <div className="max-w-7xl gap-6 mx-auto mt-30 p-8 shadow-2xl rounded-2xl border border-blue-100 flex items-stretch">
       <div className="w-1/2 pl-8 flex flex-col justify-center">
-        <h1 className="text-3xl font-extrabold mb-8 text-blue-700 text-center tracking-tight">
-          Agregar un nuevo platillo
+        <h1 className="text-xl font-extrabold mb-8 text-blue-700 text-center tracking-tight">
+          {selectedPlatillo ? "Editar platillo" : "Agregar un nuevo platillo"}
         </h1>
 
         <form onSubmit={onSubmit} className="space-y-6">
@@ -52,7 +71,6 @@ export const AddMenu = () => {
               autoComplete="off"
               value={nombre}
               onChange={onInputChange}
-              
             />
           </div>
           <div>
@@ -109,7 +127,6 @@ export const AddMenu = () => {
               required
               value={imagenUrl}
               onChange={onInputChange}
-              
             />
           </div>
           <div>
@@ -153,15 +170,14 @@ export const AddMenu = () => {
             type="submit"
             className="w-full bg-blue-600 text-white font-bold px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition active:scale-95"
           >
-            Añadir Platillo
+            {selectedPlatillo ? "Actualizar Platillo" : "Añadir Platillo"}
           </button>
         </form>
       </div>
       <div className="w-1/2 flex flex-col justify-center">
         <img
-        
-          src={imagenUrl ? imagenUrl : '../public/selectImage.png'}
-          alt={imagenUrl ? imagenUrl : 'No hay imagen'}
+          src={imagenUrl ? imagenUrl : "../public/selectImage.png"}
+          alt={imagenUrl ? imagenUrl : "No hay imagen"}
           className="w-full h-auto rounded-lg shadow-lg"
         />
       </div>

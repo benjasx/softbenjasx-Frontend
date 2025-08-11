@@ -4,8 +4,8 @@ export const CartItem = ({ platillo, removeFromCart }) => {
   return (
     <li className="flex justify-between items-center border-b border-blue-100 py-2">
       <div>
-        <span className="font-semibold text-xl">{platillo.cantidad}</span>
-        <span className="font-semibold text-xl ml-4">{platillo.nombre}</span>
+        <span className="font-semibold ">{platillo.cantidad}</span>
+        <span className="font-semibold  ml-4">{platillo.nombre}</span>
       </div>
       <span className="text-sm">c/u ${platillo.precio}</span>
 
@@ -16,7 +16,7 @@ export const CartItem = ({ platillo, removeFromCart }) => {
         {/* Botón para quitar un elemento */}
         <button
           onClick={() => removeFromCart(platillo)}
-          className="font-semibold cursor-pointer size-8 text-center text-white text-xl bg-red-500 rounded-full flex items-center justify-center"
+          className="font-semibold cursor-pointer size-8 text-center text-white  bg-red-500 rounded-full flex items-center justify-center"
         >
           &minus;
         </button>

@@ -23,30 +23,30 @@ export const AddSale = () => {
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
-  
+
   return (
-    <div className="max-w-[1500px] mx-auto mt-60 mb-10 p-8 shadow-2xl rounded-2xl border border-blue-100">
-      <h1 className="text-4xl font-extrabold mb-8 text-blue-700 text-center w-full">
+    <div className="max-w-[1200px] mx-auto mt-30 mb-10 p-8 shadow-2xl rounded-2xl border border-blue-100">
+      <h1 className="text-2xl font-extrabold mb-8 text-blue-700 text-center w-full">
         Generar una venta
       </h1>
       <div className="flex mt-10 justify-between gap-16">
         <div className="w-2/3">
-          <h2 className="text-4xl text-center font-bold mb-4">Menú</h2>
+          <h2 className="text-2xl text-center font-bold mb-4">Menú</h2>
           <div className="flex m-4 gap-3">
             <button
-              className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
+              className="bg-blue-500 text-white text-sm font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
               onClick={() => handleCategoryClick("Platillos")}
             >
               Platillos
             </button>
             <button
-              className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
+              className="bg-blue-500 text-white text-sm  font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
               onClick={() => handleCategoryClick("Bebidas")}
             >
               Bebidas
             </button>
             <button
-              className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
+              className="bg-blue-500 text-white text-sm font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
               onClick={() => handleCategoryClick("Postres")}
             >
               Postres
@@ -55,7 +55,7 @@ export const AddSale = () => {
           <ul>
             {menuList.map((platillo) => (
               <MenuItem
-                key={platillo.nombre}
+                key={platillo._id}
                 platillo={platillo}
                 addToCart={addToCart}
               />
@@ -63,7 +63,7 @@ export const AddSale = () => {
           </ul>
         </div>
         <div className="w-1/2 bg-white p-8 rounded-xl shadow-lg max-w-[550px] text-gray-800 font-mono">
-          <h2 className="text-4xl text-center font-bold mb-10">Pedido</h2>
+          <h2 className="text-2xl text-center font-bold mb-10">Pedido</h2>
           <span className="text-gray-500 block text-end">
             {"Mi Restaurant"}
           </span>
@@ -86,7 +86,7 @@ export const AddSale = () => {
             </p>
           ) : (
             <div className="border-t border-blue-100 mt-20 pt-4">
-              <h3 className="text-xl font-bold">Total: ${total.toFixed(2)}</h3>
+              <h3 className=" font-bold">Total: ${total.toFixed(2)}</h3>
               <button
                 className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 onClick={() => {

@@ -44,7 +44,7 @@ export const AddUser = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto mt-70 p-8 shadow-2xl rounded-2xl border border-blue-100 flex items-stretch">
+    <div className="max-w-7xl mx-auto mt-30 p-8 shadow-2xl rounded-2xl border border-blue-100 flex items-stretch">
       {/* Imagen al lado izquierdo */}
       <div className="w-1/2 flex items-center justify-center">
         <img
