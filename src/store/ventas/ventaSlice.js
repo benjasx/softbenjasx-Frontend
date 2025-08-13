@@ -18,9 +18,12 @@ export const salesSlice = createSlice({
     onClearSales: (state) => {
       state.salesList = [];
     },
+    onLoadSales: (state, { payload = [] }) => {
+        state.salesList = payload;
+    }
     // Puedes agregar más reducers, como para actualizar o eliminar ventas
   },
 });
 
 // Exporta las acciones que se generaron automáticamente
-export const { onAddNewSale, onClearSales } = salesSlice.actions;
+export const { onAddNewSale, onClearSales, onLoadSales } = salesSlice.actions;
